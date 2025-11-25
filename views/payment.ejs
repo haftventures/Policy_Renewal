@@ -1,0 +1,318 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="msapplication-starturl" content="/">
+  <link  rel="icon" type="image/png" sizes="16x16"  href="" rel="web-icon">
+  <title>Policy Renewal</title>
+   <script src="https://cdn.tailwindcss.com"></script>
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+   <link rel="StyleSheet" href="/css/style.css">
+   <link href="https://unpkg.com/tabulator-tables@6.2.0/dist/css/tabulator.min.css" rel="stylesheet">
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"/>
+     <!-- Loader -->
+  <div id="loader" class="fixed inset-0 flex items-center justify-center bg-[#fdfcfc] z-50 w-screen h-screen" style="display:flex;">
+    <img src="../assets/images/loader4.gif" alt="Loading..." class="w-[100vh] h-[60vh] object-contain">
+  </div>
+
+  <style>
+    body.loading {
+      overflow: hidden;
+    }
+  </style>
+
+
+  </head>
+<body class="m-0 p-0 div_body">
+
+
+<div class="w-full bg-[#ffffff] flex items-center justify-between px-1 py-2 shadow-md">
+  <!-- Left: User Name -->
+  <div class="flex items-center">
+    <!-- <i class="fas fa-shield-alt text-yellow-400 me-1 text-2xl"></i> -->
+    <span class="text-gray-800 font-semibold ">Policy Renewal</span>
+  </div>
+
+  <!-- Right: Logo -->
+  <div class="hidden">
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSnqUW5rpy85s0VUD3dOatNS-1ZPhwwIuWzmA&s" alt="Logo" class="h-10 w-30 object-contain">
+  </div>
+  <div class="flex items-center gap-2" id="support_btn">
+    <i class="fa-solid fa-headset text-xl"></i>
+    <span class="text-gray-800 font-semibold text-sm">Support</span>
+  </div>
+</div>
+
+  <% followupListData.forEach(item => { %>
+  <div id="detailsPage" class="w-full calendar  mx-auto p-4 sm:p-6 md:p-8  rounded-xl ">
+ <!-- <h2 class="text-2xl font-bold text-center text-orange-300 mb-6">Policy  Renewal</h2> -->
+
+ <!-- <div class="welcome-msg max-w-7xl pt-3 pb-1 mx-4 rounded-t-lg"><h1 class="font-bold text-black text-base md:text-xl">Hi ARCHANA S,</h1><p class="mt-1 text-xs text-black font-normal">The renewal of your  <span class="font-semibold">Car Secure Liability Only Policy</span> of the premium amount <span class="font-semibold">₹4774</span> is due on <span class="font-semibold text-policyend">24 November 2025</span>.</p></div> -->
+ <!-- <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+ </div> -->
+    <!-- Header -->
+<div class="mb-6">
+  <br class="text-lg font-semibold flex items-center hover:text-gray-600 transition-colors duration-300">
+   
+   Hi&nbsp;<span id="txtcustomername"><%= item.customername %></span>,
+  </h2>
+  <label id="lblid" class="hidden"><%= item.id %></label>
+   <label id="lbtransactionid" class="hidden"><%= item.mobile %></label>
+ <label id="lblmobile" class="hidden"><%= item.transactionid %></label>
+  <!-- <p class="text-gray-600 mt-2 text-sm">
+    The renewal of your <span class="font-semibold ">Car Secure Liability Only Policy</span> of the premium amount <span class="font-semibold ">₹4774</span> is due on <span class="font-semibold  text-red-500">24 November 2025</span>.
+  </p>
+  <p class="mt-3 w-full bg-blue-100 text-blue-800 py-3 text-center rounded-lg font-semibold ">
+    Renew your policy now!
+  </p> -->
+</div>
+
+<!-- Vehicle Details -->
+<div class="mt-6 mb-6">
+  <h3 class="flex items-center text-gray-800 font-semibold  mb-2">
+    <i class="fas fa-car-side text-indigo-800 mr-2"></i>
+    Vehicle Details
+  </h3>
+  <div class="rounded-lg grid grid-cols-2 px-3 bg-[#f5f5f5] text-[12px] shadow">
+    <div class="w-full py-2 shadow-sm col-span-2  text-black flex justify-between items-center ">
+      <p class="">Vehicle Model</p>
+      <b  class="font-semibold text-right text-sm"><%= item.make %> - <%= item.model %></b>
+    </div>
+    <div class="w-full py-2 shadow-sm col-span-2  text-black flex justify-between items-center">
+      <p class="">Registration Number</p>
+      <b class="font-semibold text-sm"><%= item.vehicleno %></b>
+    </div>
+  </div>
+</div>
+
+<!-- Policy Details -->
+  <h3 class="flex items-center text-gray-800 font-semibold  mb-2">
+    <i class="fas fa-file-contract text-blue-600 mr-2"></i>
+    Policy Details
+  </h3>
+<div class="text-black  bg-[#f5f5f5] text-[12px] shadow rounded-lg">
+ 
+  <div class="flex justify-center items-center flex-wrap px-3">
+    <div class="w-full py-2 flex justify-between items-center border-b hidden">
+      <p class="">Policy No</p>
+      <b class="font-semibold "><%= item.prev_policyno %></b>
+    </div>
+    <div class="w-full py-2 flex justify-between items-center border-b hidden">
+      <p class="">IDV</p>
+      <b class="font-semibold ">₹<%= item.idv %></b>
+    </div>
+    <!-- <div class="flex justify-between items-center px-4 py-2">
+      <p class="flex items-center gap-2"><i class="fas fa-calendar-alt text-yellow-300"></i> Policy Start Date</p>
+      <b class="font-semibold ">25 November 2024</b>
+    </div> -->
+    <div class="w-full py-2 flex justify-between items-center border-b">
+      <p class="">Policy End Date</p>
+      <b class="font-semibold  text-red-500"><%= item.policyenddate %> </b>
+    </div>
+    <div class="w-full py-2 flex justify-between items-center">
+      <p class="">Email</p>
+      <b class="font-semibold "><%= item.email %></b>
+    </div>
+  
+  </div>
+    <div class="w-full px-3 py-2 flex justify-between items-center bg-[#cfe4ff] text-black text-[12px] rounded-lg">
+      <p class="font-semibold">Premium Amount</p>
+      <b id="txtgrosspremium" class="font-extrabold text-sm">₹<%= item.grosspremium %></b>
+      <span class="hidden" id="lbl_grosspremium"><%= item.grosspremium %></span>
+    </div>
+</div>
+<% }) %>
+</div>
+
+  <div class="hidden">
+ <div id="qrSection" class="hidden md:flex flex-col items-center p-6 rounded-2xl">
+    <h1 class="text-lg font-semibold mb-3 text-gray-700">Scan & Pay</h1>
+    <canvas id="qrCanvas" ></canvas>    
+    <p class="text-gray-600 text-sm">Scan this QR using any UPI app</p>
+     <a id="downloadBtn" download="upi-qr.png" class="inline-block mt-4 px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg"><i class="fa-solid fa-arrow-down text-white"></i> Download QR</a>
+  </div>
+
+  <!-- Mobile View: Show GPay icon -->
+  <div id="mobileSection" class="flex md:hidden flex-col items-center">
+     <h1 class="text-lg font-semibold mb-2 text-gray-700">Scan & Pay</h1>
+     <div id="gpayIcon">
+    <canvas id="qrCanvasmob" ></canvas>
+     </div>
+    
+    <p class="text-gray-600 mt-2 text-sm">Tap to pay any UPI app</p>
+  </div>
+</div>
+
+<!-- Centered Radio Buttons Section -->
+<div class="w-full flex justify-center items-center py-6 px-2">
+  <div class="bg-white shadow-lg rounded-2xl p-6 w-full sm:w-80 text-center">
+    <h2 class="text-xl font-semibold mb-4 text-gray-800">Amount</h2>
+
+    <!-- Radio Buttons -->
+    
+    <div class="space-y-4 justify-items-center">
+      <label id="" class="flex items-center  cursor-pointer border rounded-lg px-4 py-2 hover:bg-blue-50 transition">
+        <input type="radio" id="oneYear" name="option" class="text-blue-500 accent-orange-600" value="<%= oneYear %>" checked >
+        <span class="text-gray-700 font-medium ms-3">1 Years — ₹<%= oneYear %></span>
+        <span class="hidden" id="lbl1">1</span>
+      </label>
+
+      <label class="flex items-center cursor-pointer border rounded-lg px-4 py-2 hover:bg-blue-50 transition">
+        <input type="radio" id="twoYear" name="option" class="text-blue-500 accent-orange-600" value="<%= twoYear %>">
+        <span class="text-gray-700 font-medium ms-3">2 Years — ₹<%= twoYear %></span>
+        <span class="hidden" id="lbl2">2</span>
+      </label>
+
+      <label class="flex items-center cursor-pointer border rounded-lg px-4 py-2 hover:bg-blue-50 transition">
+        <input type="radio" id="threeYear" name="option"  class="text-blue-500 accent-orange-600" value="<%= threeYear %>">
+        <span class="text-gray-700 font-medium ms-3">3 Years — ₹<%= threeYear %></span>
+        <span class="hidden" id="lbl3">3</span>
+      </label>
+    </div>
+      
+  </div>
+
+
+  
+</div>
+
+
+
+<div class="w-full flex justify-center items-center py-6 px-2">
+  <div class="rounded-2xl p-6 w-full lg:w-full sm:w-96 text-center">
+  <div class="space-y-4">
+
+    <!-- Terms & Conditions Checkbox -->
+     <div class="lg:px-[110px]">
+     <label class="flex items-start gap-2 cursor-pointer">
+      <input id="terms_policy" type="checkbox" class="mt-1 h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500 accent-orange-600">
+      <span class="text-gray-700">
+        I agree to the 
+        <a href="/termsandconditions.html" target="blank" class="text-blue-600 underline hover:text-blue-800">Terms & Conditions</a> 
+        and 
+        <a href="/privacypolicy.html" target="blank" class="text-blue-600 underline hover:text-blue-800">Privacy Policy</a>.
+      </span>
+     </label>
+     </div>
+   
+
+    <!-- Note Section -->
+    <div class="px-4 rounded-xl mt-0">
+      <p class="text-black">
+      <span class="text-lg font-semibold text-gray-800">Note:</span><span class="text-red-600 text-transform: capitalize"> company working hours are 10:00 AM to 07:00 PM (Monday to Saturday). If payment is made outside working hours, the policy will be generated on the next working day.
+      </span></p>
+    </div>
+
+  </div>
+  </div>
+</div>
+
+
+<!-- Modal Background -->
+<div id="support_Modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+
+  <!-- Modal Box -->
+  <div class="bg-white rounded-xl shadow-lg w-full max-w-md p-6">
+    
+    <!-- Header -->
+    <div class="flex justify-between items-center mb-4">
+       <!-- <div class="flex items-center gap-2">
+      <i class="fa-solid fa-headset text-xl"></i>
+        <span class="text-gray-800 font-semibold text-sm">Support</span>
+       </div> -->
+       <div class="flex items-center gap-2">
+       <i class="fa-solid fa-pen"></i>
+       <span class="text-center text-transform-capitalize text-[20px] text-black font-bold">Rise Your Queries</span>
+       </div>
+       
+      <button onclick="closeModal()" class="text-gray-500 hover:text-gray-700 text-xl">&times;</button>
+    </div>
+
+    <!-- Form -->
+    <div class="space-y-4">
+
+      <!-- Name -->
+      <div>
+        <label class="block text-gray-700 font-medium mb-1">Name</label>
+        <input id="sp_name" type="text" maxlength="50" class="w-full px-3 py-2 border rounded-lg focus:ring focus:ring-blue-300 outline-none" placeholder="Enter name">
+      </div>
+
+      <!-- Description -->
+      <div>
+        <label class="block text-gray-700 font-medium mb-1">Description</label>
+        <textarea maxlength="1000" id="sp_description" class="w-full px-3 py-2 border rounded-lg h-28 resize-none focus:ring focus:ring-blue-300 outline-none" placeholder="Enter description"></textarea>
+      </div>
+
+    </div>
+
+    <!-- Footer Buttons -->
+    <div class="mt-6 flex justify-end gap-3">
+      <button onclick="closeModal()" class="px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300">Cancel</button>
+      <button id="save_btn" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">Submit</button>
+    </div>
+
+  </div>
+</div>
+
+
+<div class="w-full h-[100px] "></div>
+
+  <div id="stickybtn" class="term fixed bottom-0 p-4  bg-tranparent w-full mt-4  rounded-t-xl backdrop-blur-[9px]">
+  <div>
+  <div class="py-2">
+  <button id="btn_sticky_renewal" class="w-full rounded-full shadow-xl flex items-center justify-center px-10 py-3 border border-transparent text-base font-semibold text-white bg-blue-600">Pay Now<span class="ml-2" id="rn_am"></span>
+  </button>
+  </div>
+  </div>
+  </div>
+
+
+ <label id="lblamount" class="hidden"></label>
+ 
+<div style="z-index: 20000;" id="hs-modal" class="hs-overlay hidden fixed inset-0 z-50 bg-black bg-opacity-70 backdrop-blur-[12px] flex items-center justify-center" role="dialog" aria-modal="true">
+  <div class="bg-white rounded-xl w-full max-w-md p-6 shadow-lg fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" >
+    <!-- Header -->
+    <div class="mb-4">
+      <h3 id="modalHeader" class="text-xl text-green-500 font-bold border-b border-gray-200 text-gray-800"></h3>
+     
+      
+    </div>
+    <!-- Message -->
+    <div class="mb-4">
+      <p id="modalMessage" class="text-gray-700 text-lg"></p>
+    </div>
+    <!-- OK Button -->
+    <div class="text-right">
+      <button type="button" id="modalClose" class="py-2 px-4 text-sm font-medium rounded bg-blue-600 text-white hover:bg-blue-700">
+        Cancel
+      </button>
+    </div>
+  </div>
+</div>
+    <label for="lbltnxid" id="lbltnxid" class="hidden"></label>
+    <label for="lblexcelid" id="lblexcelid" class="hidden"></label>
+  <script src="/assets/js/jquery-3.6.0.min.js"></script>
+  <script src="/assets/js/jquery-3.6.4.min.js"></script>
+   <script src="/assets/flatpickr.js"></script>
+  <script src="/assets/tabulator.min.js"></script>
+  <script src="/assets/xlsx.full.min.js"></script>
+  <link rel="stylesheet" href="/assets/flatpickr.min.css"/>
+  <link rel="stylesheet" href="/assets/tabulator.min.css"/>
+  <!-- <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script> -->
+  <script src="/assets/qrcode.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <script src="/assets/js/payment/payment.js"> </script>
+  <script src="/assets/js/common_scripts.js"></script>
+  
+</body>
+</html>
+
+
+
+
+  

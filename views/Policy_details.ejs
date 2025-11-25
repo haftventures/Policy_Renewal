@@ -1,0 +1,60 @@
+<html>
+<body>
+<div id="mainPage" class="w-full p-2 sm:p-2 md:p-2 mt-1 rounded-xl mb-1">
+    <h1 class="flex-1 text-center text-xl font-semibold text-gray-800 mb-6">Policy Details</h1>
+
+    <div class="flex flex-col sm:flex-row sm:flex-wrap sm:items-end justify-self-center gap-4 mb-4">
+        <div class="flex flex-col w-full sm:w-auto">
+            <label class="text-gray-700 font-medium mb-1">From Date</label>
+            <input id="FromDate" type="text" placeholder="From Date" readonly
+                class="border border-gray-300 rounded-lg px-3 py-2 w-full sm:w-48 focus:ring-1 focus:ring-blue-700 bg-white" />
+        </div>
+
+        <div class="flex flex-col w-full sm:w-auto">
+            <label class="text-gray-700 font-medium mb-1">To Date</label>
+            <input id="ToDate" type="text" placeholder="To Date" readonly
+                class="border border-gray-300 rounded-lg px-3 py-2 w-full sm:w-48 focus:ring-1 focus:ring-blue-700 bg-white" />
+        </div>
+
+        <div class="flex w-full sm:w-auto">
+            <button id="viewBtn"
+                class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-2 rounded-lg shadow w-full sm:w-auto mt-2 sm:mt-6">
+                View
+            </button>
+        </div>
+    </div>
+</div>
+
+
+ <!-- Tabulator Grid -->
+  
+   <!-- <div class="p-2"> -->
+  <div id="dynamicTable" class="overflow-x-auto"></div>
+
+   <div class="flex w-full flex justify-center" id="div_send" style="display:none;">
+            <button id="sendBtn"
+                class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-2 rounded-lg shadow w-full sm:w-auto mt-2 sm:mt-2">
+                Send
+            </button>
+        </div>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
+<link href="https://unpkg.com/tabulator-tables@6.2.0/dist/css/tabulator.min.css" rel="stylesheet"/>
+<script src="https://unpkg.com/tabulator-tables@6.2.0/dist/js/tabulator.min.js"></script>
+<script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="/assets/js/Policy_details/Policy_details.js"></script>
+<script src="/assets/js/common_scripts.js"></script>
+<script src="/assets/js/globalGridTheme.js"></script>
+<script src="/assets/js/globalAjax.js"></script>
+
+<!-- <script src="/assets/js/jquery-3.6.4.min.js"></script> -->
+   <!-- ⭐ Loader Overlay (place here before </body>) -->
+    <div id="cover">
+        <div class="req_res_loader"></div>
+    </div>
+</body>
+</html>

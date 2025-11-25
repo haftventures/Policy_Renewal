@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Payment Done</title>
+     <script src="/assets/js/tailwind.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+ 
+   <style>
+    /* 🔴🔵 Siren Flash Animation */
+    @keyframes sirenFlash {
+      0%, 100% { color: #ef4444; }   /* red */
+      50% { color: #3b82f6; }        /* blue */
+    }
+    .siren {
+      animation: sirenFlash 0.8s infinite ease-in-out;
+      text-shadow: 0 0 10px rgba(239,68,68,0.6), 0 0 20px rgba(59,130,246,0.6);
+    }
+  </style>
+  </head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+  <div class="bg-white rounded-2xl shadow-lg p-8 w-full max-w-md text-center">
+    <div class="flex justify-center mb-6">
+      <!-- <svg class="w-16 h-16 text-green-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg> -->
+       <i class="fa-solid fa-clock-rotate-left text-6xl text-yellow-500"></i>
+
+    </div>
+    <h1 class="text-md font-semibold text-gray-800 mb-2">Payment already done for this transaction ID!</h1>
+    <!-- <p class="text-gray-600 mb-6">Payment already done.</p> -->
+    <!-- <a href="/" class="bg-green-500 hover:bg-green-600 text-white font-medium py-2 px-6 rounded-full transition-all">
+      Go Back Home
+    </a> -->
+  </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <script>
+    window.addEventListener('load', () => {
+confetti({ particleCount: 80, angle: 60, spread: 55, origin: { x: 0 } });
+confetti({ particleCount: 80, angle: 120, spread: 55, origin: { x: 1 } });
+    });
+  </script>
+</body>
+</html>

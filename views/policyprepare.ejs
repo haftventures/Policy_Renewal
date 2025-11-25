@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Policy Upload & Viewer</title>
+   <link rel="StyleSheet" href="/css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<style>
+/* ✅ Scrollbar styling (cannot be inline) */
+#imageListContainer::-webkit-scrollbar {
+  height: 4px;
+}
+#imageListContainer::-webkit-scrollbar-thumb {
+  background: #cccccc;
+  border-radius: 4px;
+}
+</style>
+</head>
+<body>
+
+<div id="mainPage" class="w-full p-4 sm:p-6 md:p-8 mt-5 rounded-xl mb-5">
+  
+  <!-- Tabulator Grid -->
+  <div class="p-4">
+    <div class="flex justify-between items-center mb-4">
+      <input
+        id="search_box"
+        type="text"
+        placeholder="Search..."
+        class="border p-2 rounded w-64 hidden"
+      />
+    </div>
+    <div id="dynamicTable" class="overflow-x-auto"></div>
+  </div>
+
+   <div class="p-4">
+    <div class="flex justify-between items-center mb-4">
+      <input
+        id="search_box"
+        type="text"
+        placeholder="Search..."
+        class="border p-2 rounded w-64 hidden"
+      />
+    </div>
+    <div id="gridTable2" class="overflow-x-auto"></div>
+  </div>
+</div>
+
+
+<div id="secoundPage" class="w-full  p-4 sm:p-6 md:p-8  mt-5 rounded-xl mb-5 hidden">
+  <h1 class="flex-1 text-center text-xl font-semibold text-gray-800 mb-6">Policy Prepare</h1>
+  <div class="split-container">
+    
+    <div class="form-section">
+      <h2>Quotation Fresh Policy Details</h2>
+
+      <label for="tlMobile">Payment Datee</label>
+      <input type="text" class="tl_clear tl_textall tl_chk" readonly  id="tlpayment_datee" data-placeholder="Payment Datee">
+
+      <label for="customerName" >Customer Name</label>
+      <input type="text" class="tl_clear tl_textall tl_chk" id="customerName" placeholder="Enter name" data-placeholder="Customer Name">
+
+      <label for="mobileNo">Mobile No.</label>
+      <input type="text" class="tl_clear tl_textall tl_chk mob" maxlength="10" onkeypress="return isNumberKey(event)" id="mobileNo" placeholder="Enter mobile" data-placeholder="Mobile No">
+
+      <label for="vehicleNo">Vehicle No.</label>
+      <input type="text" class="tl_clear tl_textall tl_chk" id="vehicleNo" placeholder="Enter vehicle no." data-placeholder="vehicle no.">
+
+     <label for="tlmake">Make</label>
+      <input type="text" class="tl_clear tl_textall tl_chk" id="tlmake" data-placeholder="Make">
+
+         <label for="tlmodel">Model</label>
+      <input type="text" class="tl_clear tl_textall tl_chk" id="tlmodel" data-placeholder="Model">
+
+      <label for="remarks">Remarks</label>
+      <textarea id="remarks" class="" placeholder="Remarks" data-placeholder="Remarks"></textarea>
+
+      <label for="branchName">Branch Name</label>
+      <select id="branchName" class="" data-placeholder="Branch Name">
+        <option>Madurai</option>
+        <option>Chennai</option>
+        <option>Coimbatore</option>
+      </select>
+
+      <label for="tlmake">Idv</label>
+      <input type="text" class="tl_clear tl_textall tl_chk" id="tlidv" data-placeholder="Idv">
+
+        <label for="tlMobile">amount</label>
+      <input type="text" class="tl_clear tl_textall tl_chk" id="tlamount" data-placeholder="Amount">
+
+     
+
+
+         <label for="tlmodel">Transactionid</label>
+      <input type="text" class="tl_clear tl_textall tl_chk" id="tltransactionid" data-placeholder="Transactionid">
+
+       <label for="tlmodel">Merchentorderid</label>
+      <input type="text" class="tl_clear tl_textall tl_chk" id="tlMerchentorderid" data-placeholder="Merchentorderid">
+
+      <label for="tlmodel">Regdate</label>
+      <input type="text" class="tl_clear tl_textall tl_chk" readonly id="tlregdate" data-placeholder="Regdate">
+
+      <label for="tlmodel">Chasisno</label>
+      <input type="text" class="tl_clear tl_textall tl_chk chkno" id="tlchasisno" data-placeholder="Chasisno">
+
+       <label for="tlmodel">Engineno</label>
+      <input type="text" class="tl_clear tl_textall tl_chk chkno" id="tlengineno" data-placeholder="Engineno">
+
+
+      <label for="tlMobile">TL Mobile No</label>
+      <input type="text" class="" id="tlMobile" data-placeholder="TL Mobile No">
+
+        
+
+      
+
+      
+     
+
+      <label for="execMobile">Executive Mobile No</label>
+      <input type="text" class="" id="execMobile" value="8682971683" data-placeholder="Executive Mobile No">
+
+      <label for="fileInput">Upload Policy PDF</label>
+      <form id="uploadForm" enctype="multipart/form-data">
+        <input type="file" id="fileInput" name="policyPdf" accept=".jpg,.png,.pdf">
+      </form>
+
+      <!-- <button>Save</button>
+      <button class="cancel-btn">Cancel</button> -->
+    </div>
+
+    <div class="viewer-section">
+      
+      <div id="imageListContainer" style="display:flex; margin-bottom: 10px; margin-top: 10px; flex-wrap:nowrap; overflow-x:auto; white-space:nowrap; padding:6px 12px; gap:12px; width:620px; "></div>
+
+      <div class="viewer-container">
+        <img id="policyImage" src="" alt="Policy Document Preview">
+      </div>
+
+      <div class="controls">
+        <button onclick="prevImage()"><i class="fas fa-arrow-left"></i></button>
+        <button onclick="rotateLeft()"><i class="fas fa-undo-alt"></i> Left</button>
+        <button onclick="rotateRight()"><i class="fas fa-redo-alt"></i> Right</button>
+        <button onclick="zoomOut()"><i class="fas fa-search-minus"></i></button>
+        <button onclick="zoomIn()"><i class="fas fa-search-plus"></i></button>
+        <button onclick="nextImage()"><i class="fas fa-arrow-right"></i></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ✅ Separate Office Use Layout (Bottom Section) -->
+ <div class="office-use">
+  <h3>Office Use Only</h3>
+
+  <div class="office-grid">
+   
+    <div>
+      <label for="premiumAmount">Od</label>
+      <input type="number" id="txt_od" class="form-control tl_clear tl_textall tl_chk" data-placeholder="Od">
+    </div>
+
+    <div>
+      <label for="insurerName">Tp</label>
+      <input type="text" id="txt_tp" class="form-control tl_clear tl_textall tl_chk" data-placeholder="Tp">
+    </div>
+
+       <div>
+      <label for="agentName">Netpremium</label>
+      <input type="text" id="txt_netpremium" class="form-control tl_clear tl_textall tl_chk" data-placeholder="Netpremium">
+    </div>
+
+    <div>
+      <label for="issuedBy">Grosspremium</label>
+      <input type="text" id="txt_grosspremium" class="form-control tl_clear tl_textall tl_chk" data-placeholder="Grosspremium">
+    </div>
+
+
+    <div>
+      <label for="paymentMode">Payment Mode</label>
+      <select id="ddl_paymentMode" class="form-control tl_clear tl_textall tl_chk" data-placeholder="Payment Mode">
+        <option value="">Select Payment Mode</option>
+        <option>Cash</option>
+        <option>Cheque</option>
+        <option>Credit Card</option>
+        <option>UPI</option>
+        <option>Online Transfer</option>
+      </select>
+    </div>
+
+ <div>
+      <label for="paymentMode">Company</label>
+      <select id="ddl_paymentMode" class="form-control tl_clear tl_textall tl_chk" data-placeholder="Company">
+        <option value="0">Select Company</option>
+        <option value="icici">Icici</option>
+        <option value="hdfc">Hdfc</option>
+        <option value="sbi">Sbi</option>
+        <option value="axis">Axis</option>
+      </select>
+    </div>
+
+    <div> 
+      <label for="policyNo">Policy No</label>
+      <input type="text" id="policyNo" class="form-control tl_clear tl_textall tl_chk" data-placeholder="Enter Policy No">
+    </div>
+
+    <div>
+      <label for="branchCode">Branch Code</label>
+      <input type="text" id="branchCode" class="form-control" placeholder="Enter Branch Code">
+    </div>
+
+    <div>
+      <label for="remarks">Remarks</label>
+      <textarea id="remarks" class="form-control" placeholder="Enter Remarks"></textarea>
+    </div>
+
+    <div>
+      <label for="approvedBy">Approved By</label>
+      <input type="text" id="approvedBy" class="form-control" placeholder="Enter Approver Name">
+    </div>
+
+    <div>
+      <label for="approvalDate">Approval Date</label>
+      <input type="date" id="approvalDate" class="form-control">
+    </div>
+
+    <div>
+      <label for="startDate">Policy Start Date</label>
+      <input type="date" id="startDate" class="form-control">
+    </div>
+
+    <div>
+      <label for="endDate">Policy End Date</label>
+      <input type="date" id="endDate" class="form-control">
+    </div>
+  </div>
+
+ <div class="controls" style="text-align: center; margin-top: 20px;">
+  <button type="button" id="save_btn" class="btn btn-primary save-btn">Save</button>
+  <button type="button" id="back_btn" class="btn btn-secondary cancel-btn" style="margin-left: 10px;">Cancel</button>
+</div>
+</div>
+</div>
+
+ <div style="z-index: 1000;" id="hs-modal" class="hs-overlay hidden fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center" role="dialog" aria-modal="true">
+  <div class="bg-white rounded-xl w-full max-w-md p-6 shadow-lg fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" >
+    <!-- Header -->
+    <div class="mb-4">
+      <h3 id="modalHeader" class="text-xl text-green-500 font-bold border-b border-gray-200 text-gray-800"></h3>
+     
+      
+    </div>
+    <!-- Message -->
+    <div class="mb-4">
+      <p id="modalMessage" class="text-gray-700 text-lg"></p>
+    </div>
+    <!-- OK Button -->
+    <div class="text-right">
+      <button type="button" id="modalClose" class="py-2 px-4 text-sm font-medium rounded bg-blue-600 text-white hover:bg-blue-700">
+        Cancel
+      </button>
+    </div>
+  </div>
+</div>
+
+<label id="lblinsertedId" class="hidden"></label>
+<label id="lblprepare_pending" class="hidden">open</label>
+<label id="lbluserid" class="hidden"></label>
+ 
+  <script src="/assets/js/policyprepare.js"></script>
+  <script src="/assets/js/policyprepare_grid/policyprepare_grid.js"></script>
+   <script src="/assets/js/common_scripts.js"></script>
+</body>
+</html>
