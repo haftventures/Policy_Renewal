@@ -7,17 +7,11 @@ function formatDate(date) {
   return `${d}/${m}/${y}`;
 }
 
-  $("#FromDate").val(formatDate(firstDayOfMonth));
-  $("#ToDate").val(formatDate(today));
+  $("#FromDate_pr").val(formatDate(firstDayOfMonth));
+  $("#ToDate_pr").val(formatDate(today));
 
-    $(document).on('click', '#viewBtn', viewBtn);
-    $(document).on('click', '#Btn_save', Btn_save);
-    flatpickr("#Payment_Date", {
-    dateFormat: "d/m/Y",
-    allowInput: true,
-  });
-
-  $(document).on('click','#Btn_back', Btn_back)
+    $(document).on('click', '#viewBtn_pr', viewBtn_pr);
+    load();
 });
 
 
@@ -27,7 +21,7 @@ var twoYearsAgo = new Date();
 twoYearsAgo.setFullYear(today.getFullYear() - 2);
 var firstDayOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
 
- flatpickr("#FromDate", {
+ flatpickr("#FromDate_pr", {
       dateFormat: "d/m/Y",
       minDate: twoYearsAgo,
       maxDate: today,
@@ -58,7 +52,7 @@ var firstDayOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
   });
 
 
-flatpickr("#ToDate", {
+flatpickr("#ToDate_pr", {
       dateFormat: "d/m/Y",
       minDate: twoYearsAgo,
       maxDate: today,
@@ -88,19 +82,18 @@ flatpickr("#ToDate", {
       }
   });
 
- function viewBtn() {
-  const data = [$('#FromDate').val(), $('#ToDate').val(),$('#status').val().toLowerCase()];
+ function viewBtn_pr() {
+  const data = [$('#FromDate_pr').val(), $('#ToDate_pr').val(),$('#status_pr').val().toLowerCase()];
 
   $.ajax({
     type: "POST",
-    url: "/reportgrid",
+    url: "/policy_reportpr_grid",
     traditional: true,
     data: { data: data },
     beforeSend: function () {
       $("#cover").show();
     },
     success: function (response) {
-      console.log("Response:", response);
       $("#cover").hide();     
       let success = response.success;
 
@@ -112,7 +105,7 @@ if (window.currentTabulator) {
 
 
 createThemedGrid(
-    "#dynamicTable",
+    "#dynamicTable_pr",
     response.data,
     [
         { title: "S.No.", formatter: "rownum", width: 20, hozAlign: "center" },
@@ -122,31 +115,16 @@ createThemedGrid(
         { title: "Vehicle No", field: "vehicleno" },
         { title: "Make", field: "make" },
         { title: "Model", field: "model" },
-        { title: "Transactionid", field: "transactionid" },
-        { title: "email", field: "email" },
-        { title: "policyenddate", field: "policyenddate" },
-        { title: "reg_date", field: "reg_date", hozAlign: "right" },
-        { title: "engineno", field: "engineno" },
+        { title: "Cc", field: "cc" },
+        { title: "Engineno", field: "engineno" },
         { title: "Chasisno", field: "chasisno" },
-        { title: "Payment_mode", field: "payment_mode" },
-        { title: "Payment_amount", field: "payment_amount" ,width: 120 },
-        { title: "MatchStatus", field: "MatchStatus", width: 100},
+        { title: "Transactionid", field: "transactionid", hozAlign: "right" },
     ],
-    "Report"
-    // true      ------this is every column is searchable or not
+   
 );
 
-
-
-        // $("#page-size").on("change", function () {
-        //   const newSize = parseInt($(this).val(), 10);
-        //   table.setPageSize(newSize);
-        // });
-
-      
-
       } else {
-        $("#dynamicTable").html('<p class="text-center text-red-600 py-4">No data found</p>');
+        $("#dynamicTable_pr").html('<p class="text-center text-red-600 py-4">No data found</p>');
       }
     },
     error: function (xhr, status, error) {
@@ -157,38 +135,41 @@ createThemedGrid(
   });
 }
 
-function vehiclesuccess(id){
-  $("#mainPage").addClass("hidden");
-  $("#savepage").removeClass("hidden");
-  $('#lblpolicyid').text(id);
-}
 
-function Btn_back() {
-  $("#mainPage").removeClass("hidden");
-  $("#savepage").addClass("hidden");
-}
 
-function Btn_save() {
-   const data = [$('#txt_Transaction_Id').val(), $('#txt_Upi_Id').val(),$('#txt_Upi_Name').val(),$('#txt_Amount').val(),$('#Payment_Date').val(),$('#lblpolicyid').text()];
+function load() {
   $.ajax({
-    type: "POST",
-    url: "/Datasave",
+    type: "GET",
+    url: "/policy_status",
     traditional: true,
-    data: { data: data },
     beforeSend: function () {
       $("#cover").show();
     },
     success: function (response) {
-      console.log("Response:", response);
-      alert(response.message)
-      $("#savepage").addClass("hidden");
-      $("#mainPage").removeClass("hidden");
+
+      const success = response.success;
+      const data = response.data;
+
+      $("#cover").hide();
+
+      if (success === true) {
+        
+
+        const select = document.getElementById('status_pr');
+        let options = '';
+        const option = '<option value="0">-- Select --</option>';
+
+        // FIXED: use data.forEach, not select.data
+        data.forEach(element => {
+          options += `<option value="${element.id}">${element.policy_status}</option>`;
+        });
+
+        select.innerHTML = option + options;
+      }
     },
     error: function (xhr, status, error) {
       $("#cover").hide();
       console.error("Error:", error);
-    showmobilenumber("Error!", error);
     }
   });
 }
-

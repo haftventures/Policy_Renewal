@@ -2,6 +2,8 @@ $(document).ready(function () {
 $(document).on('click','#Btn_back', Btn_back);
 $(document).on('click','#addNewBtn', addNewBtn); 
 $(document).on('click','#Btn_save', Btn_save);   
+$("#ddlonstatus").val("1");
+load();
 });
 
 var today = new Date();
@@ -74,6 +76,94 @@ function formatDate(date) {
   return `${d}/${m}/${y}`;
 }
 
+// function viewBtn() {
+//   const data = [$('#ddlonstatus').val()];
+//   $('#lblupdate').text("2")
+//   $.ajax({
+//     type: "POST",
+//     url: "/createusergrid",
+//     traditional: true,
+//     data: { data: data },
+//     beforeSend: function () {
+//       $("#cover").show();
+//     },
+//     success: function (response) {
+//       console.log("Response:", response);
+//       $("#cover").hide();
+//       $("#search_box").removeClass("hidden");
+
+//       if (response.success == true) {
+//         $("#dynamicTable").html("");
+//         const table = new Tabulator("#dynamicTable", {
+//           data: response.data,
+//           layout: "fitDataStretch",
+//           pagination: "local",
+//           paginationSize: 10,
+//           paginationSizeSelector: [10, 25, 50, 100],
+//           movableColumns: true,
+//           columns: [
+//             { title: "S.No.", formatter: "rownum", width: 70, hozAlign: "center" },
+//             // { title: "userid", field: "userid" },
+//             { title: "empcode", field: "empcode" },
+//             { title: "name", field: "name" },
+//             { title: "mobileno", field: "mobileno" },
+//             { title: "username", field: "username" },
+//             { title: "password", field: "password" },
+//             { title: "rolename", field: "rolename" },
+//             {
+//              title: "Action",
+//              formatter: function (cell) {
+//              const userid = cell.getRow().getData().userid;
+//             return `<u style="color:blue; cursor:pointer;" onclick="usercreation_update(${userid})">View</u>`;
+//              },
+// }
+//           ]
+//         });
+//         $("#search_box").on("keyup", function () {
+//           const keyword = $(this).val().toLowerCase();
+//           table.setFilter(function (data) {
+//             return Object.values(data).some(val =>
+//               String(val).toLowerCase().includes(keyword)
+//             );
+//           });
+//         });
+//         $("#page-size").on("change", function () {
+//           const newSize = parseInt($(this).val(), 10);
+//           table.setPageSize(newSize);
+//         });
+//         const branchSelect = document.getElementById('branch');
+//         const roleSelect = document.getElementById('designation');
+//         branchSelect.innerHTML = '<option value="0">Select</option>';
+//         roleSelect.innerHTML = '<option value="0">Select</option>';
+//         (response.BranchList || []).forEach(branch => {
+//           const opt = document.createElement('option');
+//           opt.value = branch.id;
+//           opt.textContent = branch.branchname;
+//           branchSelect.appendChild(opt);
+//         });
+//         (response.RoleList || []).forEach(role => {
+//           const opt = document.createElement('option');
+//           opt.value = role.id;
+//           opt.textContent = role.rolename;
+//           roleSelect.appendChild(opt);
+//         });
+
+//       } else {
+//         $("#dynamicTable").html('<p class="text-center text-red-600 py-4">No data found</p>');
+//       }
+//     },
+//     error: function (xhr, status, error) {
+//       $("#cover").hide();
+//       console.error("Error:", error);
+//     showmobilenumber("Error!", error);
+//     }
+//   });
+// }
+
+
+
+
+
 function viewBtn() {
   const data = [$('#ddlonstatus').val()];
   $('#lblupdate').text("2")
@@ -88,47 +178,51 @@ function viewBtn() {
     success: function (response) {
       console.log("Response:", response);
       $("#cover").hide();
-      $("#search_box").removeClass("hidden");
+      // $("#search_box").removeClass("hidden");
 
       if (response.success == true) {
-        $("#dynamicTable").html("");
-        const table = new Tabulator("#dynamicTable", {
-          data: response.data,
-          layout: "fitDataStretch",
-          pagination: "local",
-          paginationSize: 10,
-          paginationSizeSelector: [10, 25, 50, 100],
-          movableColumns: true,
-          columns: [
-            { title: "S.No.", formatter: "rownum", width: 70, hozAlign: "center" },
-            // { title: "userid", field: "userid" },
-            { title: "empcode", field: "empcode" },
-            { title: "name", field: "name" },
-            { title: "mobileno", field: "mobileno" },
-            { title: "username", field: "username" },
-            { title: "password", field: "password" },
-            { title: "rolename", field: "rolename" },
-            {
-             title: "Action",
-             formatter: function (cell) {
-             const userid = cell.getRow().getData().userid;
-            return `<u style="color:blue; cursor:pointer;" onclick="usercreation_update(${userid})">View</u>`;
-             },
-}
-          ]
-        });
-        $("#search_box").on("keyup", function () {
-          const keyword = $(this).val().toLowerCase();
-          table.setFilter(function (data) {
-            return Object.values(data).some(val =>
-              String(val).toLowerCase().includes(keyword)
-            );
-          });
-        });
-        $("#page-size").on("change", function () {
-          const newSize = parseInt($(this).val(), 10);
-          table.setPageSize(newSize);
-        });
+       if (window.currentTabulator) {
+         window.currentTabulator.destroy();
+        }
+
+
+      
+    window.currentTabulator = createThemedGrid(
+        "#dynamicTable",
+        response.data,
+        [
+    { title: "S.No.", formatter: "rownum", width: 130, hozAlign: "center" },
+    // { title: "userid", field: "userid" },
+    { title: "empcode", field: "empcode", width: 190  },
+    { title: "name", field: "name", width: 250  },
+    { title: "mobileno", field: "mobileno",width: 160 },
+    { title: "username", field: "username",width: 180 },
+    { title: "password", field: "password" ,width: 180  },
+    { title: "rolename", field: "rolename" ,width: 190  },
+    {
+     title: "Action",
+     width: 320,
+     formatter: function (cell) {
+     const userid = cell.getRow().getData().userid;
+    return `<u style="color:blue; cursor:pointer;" onclick="usercreation_update(${userid})">View</u>`;
+     }
+    }
+  ]
+);
+// $("#search_box").on("keyup", function () {
+//   const keyword = $(this).val().toLowerCase();
+//   table.setFilter(function (data) {
+//     return Object.values(data).some(val =>
+//       String(val).toLowerCase().includes(keyword)
+//     );
+//   });
+// });
+$("#page-size").on("change", function () {
+  const newSize = parseInt($(this).val(), 10);
+  if (window.currentTabulator && typeof window.currentTabulator.setPageSize === "function") {
+    window.currentTabulator.setPageSize(newSize);
+  }
+});
         const branchSelect = document.getElementById('branch');
         const roleSelect = document.getElementById('designation');
         branchSelect.innerHTML = '<option value="0">Select</option>';
@@ -159,6 +253,36 @@ function viewBtn() {
 }
 
 
+
+
+
+
+
+function load() {
+    const data = ["1"]; 
+    $.ajax({
+    type: "POST",
+    url: "/addnewuser",
+    traditional: true,
+    data: { data: data },
+    beforeSend: function () {
+      $("#cover").show();
+    },
+    success: function (response) {
+
+       const ddlonstatus = document.getElementById('ddlonBranch');
+        ddlonstatus.innerHTML = '<option value="0">-- Select Branch --</option>';
+
+        (response.BranchList || []).forEach(branch => {
+          const opt = document.createElement('option');
+          opt.value = branch.id;
+          opt.textContent = branch.branchname;
+          ddlonstatus.appendChild(opt);
+        });
+        
+      },
+      });
+} 
 
 function addNewBtn() {
   const data = ["1"]; 

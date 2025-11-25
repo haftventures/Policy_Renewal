@@ -15,9 +15,8 @@ function createThemedGrid(selector, tableData, tableColumns, fileName = "Export"
     // Initialize Tabulator
     const table = new Tabulator(selector, {
         data: tableData,
-        layout: "fitDataStretch",   // horizontal scroll
-        height: "400px",            // vertical scroll
-        layout: "fitDataStretch",
+        layout: "fitColumns",   // horizontal scroll
+        height: "false",            // vertical scroll       
         pagination: "local",
         paginationSize: 100,
         paginationSizeSelector: [10, 25, 50, 100],

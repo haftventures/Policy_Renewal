@@ -58,11 +58,12 @@ app.use((req, res, next) => {
 
 // ✅ Routes
 app.use('/', require('./routes/payment'));
+app.use('/', require('./routes/policy_report'));
 app.use('/', require('./routes/auth'));
 app.use('/', require('./routes/index'));
 
 // ✅ Custom business routes
-['payment', 'vehicle', 'report', 'create_user', 'success', 'kyc','Policy_details'].forEach(route => {
+['payment', 'vehicle', 'report', 'create_user', 'success', 'kyc','Policy_details', 'mass_update_sms', 'support', 'paymentdone_routes'].forEach(route => {
   const routePath = path.join(__dirname, 'routes', `${route}.js`);
   if (fs.existsSync(routePath)) app.use('/', require(routePath));
 });

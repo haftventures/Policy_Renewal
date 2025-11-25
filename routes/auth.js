@@ -45,7 +45,7 @@ router.post('/login', async (req, res) => {
     }
 
     const result = await apiCaller.apicallerLivePort('Policy_renewal/login_website', payload);
-    console.log('API Response:', result);
+
 
     if (result && result.success === true) {
       // store session details (adjust fields to match API response)

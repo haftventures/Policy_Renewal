@@ -112,6 +112,102 @@ flatpickr("#ToDate", {
       }
   });
 
+//  function viewBtn() {
+//   const data = [$('#FromDate').val(), $('#ToDate').val()];
+
+//   $.ajax({
+//     type: "POST",
+//     url: "/vehiclegrid",
+//     traditional: true,
+//     data: { data: data },
+//     beforeSend: function () {
+//       $("#cover").show();
+//     },
+//     success: function (response) {
+//       console.log("Response:", response);
+//       $("#cover").hide();
+//       $("#search_box").removeClass("hidden");
+//       if (response.success && response.data && response.data.length > 0) {
+//         $("#dynamicTable").html("");
+//         const table = new Tabulator("#dynamicTable", {
+//           data: response.data, 
+//           layout: "fitDataStretch",
+//           pagination: "local",
+//           paginationSize: 10,
+//           paginationSizeSelector: [10, 25, 50, 100],
+//           movableColumns: true,
+//           columns: [
+//             { title: "S.No.", formatter: "rownum", width: 70, hozAlign: "center" },
+//             { title: "Customer Name", field: "customername" },
+//             { title: "Mobile", field: "mobile" },
+//             { title: "Vehicle No", field: "vehicleno" },
+//             { title: "Make", field: "make" },
+//             { title: "Model", field: "model" },
+//             { title: "Year", field: "year" },
+//             { title: "Idv", field: "idv" },
+//             { title: "Cc", field: "cc" },
+//             { title: "Od", field: "od" },
+//             { title: "tp", field: "tp" },
+//               { title: "Netpremium", field: "netpremium" },
+//                { title: "Grosspremium", field: "grosspremium" },
+//                  { title: "Transactionid", field: "transactionid" },
+          
+//                { title: "Prev Policyno", field: "prev_policyno" },
+//             { title: "Amount", field: "paymentamount", hozAlign: "right" },
+//             { title: "Payment Date", field: "datee" },
+//             { title: "One year", field: "oneyear" },
+//             {
+//              title: "Action",
+//              formatter: function (cell) {
+//              const id = cell.getRow().getData().id;
+//              return `<u style="color:blue; cursor:pointer;" onclick="vehiclesuccess(${id})">View</u>`;
+//              },
+// },
+
+// {
+//              title: "Action",
+//              formatter: function (cell) {
+//              return `<u style="color:blue; cursor:pointer;">Resend</u>`;
+//              },
+// }
+
+//           ]
+//         });
+//         $("#search_box").on("keyup", function () {
+//           const keyword = $(this).val().toLowerCase();
+//           table.setFilter(function (data) {
+//             return Object.values(data).some(val =>
+//               String(val).toLowerCase().includes(keyword)
+//             );
+//           });
+//         });
+//         $("#page-size").on("change", function () {
+//           const newSize = parseInt($(this).val(), 10);
+//           table.setPageSize(newSize);
+//         });
+//         document.querySelectorAll("[data-download]").forEach(button => {
+//           button.addEventListener("click", function () {
+//             const type = this.getAttribute("data-download");
+//             if (type === "csv") {
+//               table.download("csv", "vehicle_data.csv");
+//             } else if (type === "xlsx") {
+//               table.download("xlsx", "vehicle_data.xlsx", { sheetName: "Vehicle Report" });
+//             }
+//           });
+//         });
+//       } else {
+//         $("#dynamicTable").html('<p class="text-center text-red-600 py-4">No data found</p>');
+//       }
+//     },
+//     error: function (xhr, status, error) {
+//       $("#cover").hide();
+//       console.error("Error:", error);
+//     showmobilenumber("Error!", error);
+//     }
+//   });
+// }
+
+
  function viewBtn() {
   const data = [$('#FromDate').val(), $('#ToDate').val()];
 
@@ -126,17 +222,15 @@ flatpickr("#ToDate", {
     success: function (response) {
       console.log("Response:", response);
       $("#cover").hide();
-      $("#search_box").removeClass("hidden");
+      // $("#search_box").removeClass("hidden");
       if (response.success && response.data && response.data.length > 0) {
-        $("#dynamicTable").html("");
-        const table = new Tabulator("#dynamicTable", {
-          data: response.data, 
-          layout: "fitDataStretch",
-          pagination: "local",
-          paginationSize: 10,
-          paginationSizeSelector: [10, 25, 50, 100],
-          movableColumns: true,
-          columns: [
+        if (window.currentTabulator) {
+         window.currentTabulator.destroy();
+        }
+       window.currentTabulator = createThemedGrid(
+                "#dynamicTable",
+                response.data,
+                [
             { title: "S.No.", formatter: "rownum", width: 70, hozAlign: "center" },
             { title: "Customer Name", field: "customername" },
             { title: "Mobile", field: "mobile" },
@@ -172,29 +266,29 @@ flatpickr("#ToDate", {
 }
 
           ]
-        });
-        $("#search_box").on("keyup", function () {
-          const keyword = $(this).val().toLowerCase();
-          table.setFilter(function (data) {
-            return Object.values(data).some(val =>
-              String(val).toLowerCase().includes(keyword)
-            );
-          });
-        });
-        $("#page-size").on("change", function () {
-          const newSize = parseInt($(this).val(), 10);
-          table.setPageSize(newSize);
-        });
-        document.querySelectorAll("[data-download]").forEach(button => {
-          button.addEventListener("click", function () {
-            const type = this.getAttribute("data-download");
-            if (type === "csv") {
-              table.download("csv", "vehicle_data.csv");
-            } else if (type === "xlsx") {
-              table.download("xlsx", "vehicle_data.xlsx", { sheetName: "Vehicle Report" });
-            }
-          });
-        });
+        );
+        // $("#search_box").on("keyup", function () {
+        //   const keyword = $(this).val().toLowerCase();
+        //   table.setFilter(function (data) {
+        //     return Object.values(data).some(val =>
+        //       String(val).toLowerCase().includes(keyword)
+        //     );
+        //   });
+        // });
+        // $("#page-size").on("change", function () {
+        //   const newSize = parseInt($(this).val(), 10);
+        //   table.setPageSize(newSize);
+        // });
+        // document.querySelectorAll("[data-download]").forEach(button => {
+        //   button.addEventListener("click", function () {
+        //     const type = this.getAttribute("data-download");
+        //     if (type === "csv") {
+        //       table.download("csv", "vehicle_data.csv");
+        //     } else if (type === "xlsx") {
+        //       table.download("xlsx", "vehicle_data.xlsx", { sheetName: "Vehicle Report" });
+        //     }
+        //   });
+        // });
       } else {
         $("#dynamicTable").html('<p class="text-center text-red-600 py-4">No data found</p>');
       }

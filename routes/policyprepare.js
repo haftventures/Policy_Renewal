@@ -4,6 +4,17 @@ const fs = require('fs');
 const path = require('path');
 const router = express.Router();
 const apiCaller = require('../apicaller');
+
+const multer = require("multer");
+
+// Store PDF in memory → buffer
+const storage = multer.memoryStorage();
+
+const upload = multer({
+  storage: storage,
+  limits: { fileSize: 20 * 1024 * 1024 } // max 20MB
+});
+
 // ✅ API to get all images for a given user and vehicle number
 router.get('/get-images/:user/:vehicleno', (req, res) => {
   const { user, vehicleno } = req.params;
@@ -24,12 +35,11 @@ router.get('/get-images/:user/:vehicleno', (req, res) => {
   });
 });
 
-
-
 router.post('/policypreparegrid', async (req, res) => {
   try {
     // 🧠 Step 1: Prepare payload
-    const payload = { userid: "1" };
+    const UserId = req.session.AgntDtl.UserId
+    const payload = { userid: UserId };
     // console.log("📤 Payload before API:", payload);
 
     // 🧠 Step 2: Call API
@@ -59,14 +69,16 @@ router.post('/prepareupdate', async (req, res) => {
     const data = req.body.data || [];
     // console.log("Parsed data array:", data);
     // If you need to map them properly
-    const [Id] = data;
+    const id = Number.parseInt(data, 10);
 
-    // Example payload to API
-    const id = {
-       id: Id
-    };
+    const payload = { id: id };
 
-    const result = await apiCaller.apicallerLivePort('Policy_renewal/operation_policy_prepare', id);
+    // // Example payload to API
+    // const id = {
+    //    id: Id
+    // };
+
+    const result = await apiCaller.apicallerLivePort('Policy_renewal/operation_policy_prepare', payload);
 
     // console.log("API Response:", result);
 
@@ -81,56 +93,68 @@ router.post('/prepareupdate', async (req, res) => {
   }
 });
 
-
-router.post('/preparesave', async (req, res) => {
+router.post("/preparesave", upload.single("pdfFile"), async (req, res) => {
   try {
-     const UserId = req.session.AgntDtl.UserId
+    const UserId = req.session.AgntDtl.UserId;
+
+    // get values sent from formData
     const data = req.body.data || [];
-    // console.log("Parsed data array:", data);
-    // If you need to map them properly
-    const [payment_datee,customername,mobile,vehicleno,make,model,idv,amount,transactionid,merchentorderid,regdate,chasisno,engineno,od,tp,netpremium,grosspremium,paymentmode,company,policyno,id] = data;
+    const pdfFile = req.file;
 
-    // Example payload to API
-      const savedata = {
-        policyid: id,
-        payment_datee: payment_datee,
-        customername: customername,
-        mobile: mobile,
-        vehicleno: vehicleno,
-        make: make,
-        model: model,
-        idv: idv,
-        amount: amount,
-        transactionid: transactionid,
-        merchentorderid: merchentorderid,
-        regdate: regdate,
-        chasisno: chasisno,
-        engineno: engineno,
+    const [
+      payment_datee, customername, mobile, vehicleno, make, model, idv, amount,
+      transactionid, merchentorderid, regdate, chasisno, engineno, kycheader,
+      pan, dob, support_header, support_description, od, tp, netpremium,
+      grosspremium, company, policyno, ncb, policystartdate, policyenddate,
+      remarks, policyid
+    ] = data;
 
-        od: od,
-        tp: tp,
-        netpremium: netpremium,
-        grosspremium: grosspremium,
-        paymentmode: paymentmode,
-        company: company,
-        policyno: policyno,
-  
+    // Create form-data for sending to internal API
+    const FormData = require("form-data");
+    const form = new FormData();
 
-        createby: UserId,
-    };
-
-    const result = await apiCaller.apicallerLivePort('Policy_renewal/operation_policy_save', savedata);
-
-    // console.log("API Response:", result);
-
-    res.json({
-      success: result.success,
-      message: result.message,
-      data: result.insertedId
+    // Append all text fields
+    form.append("policyid", policyid);
+    form.append("amount", amount);
+    form.append("transactionid", transactionid);
+    form.append("merchentorderid", merchentorderid);
+    form.append("od", od);
+    form.append("tp", tp);
+    form.append("netpremium", netpremium);
+    form.append("grosspremium", grosspremium);
+    form.append("company", company);
+    form.append("policyno", policyno);
+    form.append("ncb", ncb);
+    form.append("policystartdate", policystartdate);
+    form.append("policyenddate", policyenddate);
+    form.append("remarks", remarks);
+    form.append("createby", UserId);
+    form.append("mobile", mobile);
+    // Append PDF file (binary)
+    if (pdfFile) {
+    form.append("pdfFile", pdfFile.buffer, {
+        filename: pdfFile.originalname,
+        contentType: pdfFile.mimetype
     });
+}
+
+const result = await apiCaller.apicallerLivePort_formdata(
+    "Policy_renewal/operation_policy_save",
+    form,
+    {
+        headers: form.getHeaders()  // MUST include this in Node.js
+    }
+);
+
+    return res.json({
+      success: result.data.success,
+      message: result.data.message,
+      insertedId: result.data.insertedId,
+    });
+
   } catch (error) {
-    console.error('Error:', error.message);
-    res.status(500).json({ success: false, error: error.message });
+    console.error("Error:", error);
+    return res.status(500).json({ success: false, error: error.message });
   }
 });
 

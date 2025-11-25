@@ -89,11 +89,11 @@ flatpickr("#ToDate", {
   });
 
  function viewBtn() {
-  const data = [$('#FromDate').val(), $('#ToDate').val(),$('#status').val().toLowerCase()];
+  const data = [$('#FromDate').val(), $('#ToDate').val()];
 
   $.ajax({
     type: "POST",
-    url: "/reportgrid",
+    url: "/support_report",
     traditional: true,
     data: { data: data },
     beforeSend: function () {
@@ -115,74 +115,25 @@ createThemedGrid(
     "#dynamicTable",
     response.data,
     [
-        { title: "S.No.", formatter: "rownum", width: 20, hozAlign: "center" },
-        { title: "Date", field: "date" },
-        { title: "Customer Name", field: "customername" },
-        { title: "Mobile", field: "mobile" },
-        { title: "Vehicle No", field: "vehicleno" },
-        { title: "Make", field: "make" },
-        { title: "Model", field: "model" },
-        { title: "Transactionid", field: "transactionid" },
-        { title: "email", field: "email" },
-        { title: "policyenddate", field: "policyenddate" },
-        { title: "reg_date", field: "reg_date", hozAlign: "right" },
-        { title: "engineno", field: "engineno" },
-        { title: "Chasisno", field: "chasisno" },
-        { title: "Payment_mode", field: "payment_mode" },
-        { title: "Payment_amount", field: "payment_amount" ,width: 120 },
-        { title: "MatchStatus", field: "MatchStatus", width: 100},
+        { title: "S.No.", formatter: "rownum", width: 60, hozAlign: "center" },
+        { title: "Date", field: "datee", width: 100 },
+         { title: "Transactionid", field: "transactionid", width: 160 },      
+        { title: "Vehicle No", field: "vehicleno", width: 120 },
+         { title: "Make", field: "make", width: 100 },
+        { title: "Mobile", field: "mobile", width: 120 },
+        { title: "Model", field: "model", width: 100 },
+        { title: "engineno", field: "engineno", width: 160 },
+        { title: "Chasisno", field: "chasisno" , width: 120, minWidth: 120},
+          { title: "Name", field: "name", width: 100 },  
+         { title: "Description", field: "description", width: 220 },
     ],
-    "Report"
-    // true      ------this is every column is searchable or not
+   
 );
 
-
-
-        // $("#page-size").on("change", function () {
-        //   const newSize = parseInt($(this).val(), 10);
-        //   table.setPageSize(newSize);
-        // });
-
-      
 
       } else {
         $("#dynamicTable").html('<p class="text-center text-red-600 py-4">No data found</p>');
       }
-    },
-    error: function (xhr, status, error) {
-      $("#cover").hide();
-      console.error("Error:", error);
-    showmobilenumber("Error!", error);
-    }
-  });
-}
-
-function vehiclesuccess(id){
-  $("#mainPage").addClass("hidden");
-  $("#savepage").removeClass("hidden");
-  $('#lblpolicyid').text(id);
-}
-
-function Btn_back() {
-  $("#mainPage").removeClass("hidden");
-  $("#savepage").addClass("hidden");
-}
-
-function Btn_save() {
-   const data = [$('#txt_Transaction_Id').val(), $('#txt_Upi_Id').val(),$('#txt_Upi_Name').val(),$('#txt_Amount').val(),$('#Payment_Date').val(),$('#lblpolicyid').text()];
-  $.ajax({
-    type: "POST",
-    url: "/Datasave",
-    traditional: true,
-    data: { data: data },
-    beforeSend: function () {
-      $("#cover").show();
-    },
-    success: function (response) {
-      console.log("Response:", response);
-      alert(response.message)
-      $("#savepage").addClass("hidden");
-      $("#mainPage").removeClass("hidden");
     },
     error: function (xhr, status, error) {
       $("#cover").hide();

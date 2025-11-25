@@ -23,8 +23,11 @@
 </head>
 <body>
 
-<div id="mainPage" class="w-full p-4 sm:p-6 md:p-8 mt-5 rounded-xl mb-5">
   
+
+  </div>
+<div id="mainPage" class="w-full p-4 sm:p-6 md:p-8 mt-5 rounded-xl mb-5">
+      <h1 class="flex-1 text-center text-xl font-semibold text-gray-800 mb-6">Policy Preparation</h1>
   <!-- Tabulator Grid -->
   <div class="p-4">
     <div class="flex justify-between items-center mb-4">
@@ -59,76 +62,63 @@
     <div class="form-section">
       <h2>Quotation Fresh Policy Details</h2>
 
-      <label for="tlMobile">Payment Datee</label>
-      <input type="text" class="tl_clear tl_textall tl_chk" readonly  id="tlpayment_datee" data-placeholder="Payment Datee">
+      <label for="payment_datee">Payment Datee</label>
+      <input type="text" class="tl_clear tl_textall " tabindex="1" readonly  id="tlpayment_datee" data-placeholder="Payment Datee">
 
       <label for="customerName" >Customer Name</label>
-      <input type="text" class="tl_clear tl_textall tl_chk" id="customerName" placeholder="Enter name" data-placeholder="Customer Name">
+      <input type="text" class="tl_clear tl_textall " readonly tabindex="2" id="tlcustomerName" placeholder="Enter name" data-placeholder="Customer Name">
 
       <label for="mobileNo">Mobile No.</label>
-      <input type="text" class="tl_clear tl_textall tl_chk mob" maxlength="10" onkeypress="return isNumberKey(event)" id="mobileNo" placeholder="Enter mobile" data-placeholder="Mobile No">
+      <input type="text" class="tl_clear tl_textall  mob" readonly tabindex="3" maxlength="10" onkeypress="return isNumberKey(event)" id="tlMobile" placeholder="Enter mobile" data-placeholder="Mobile No">
 
       <label for="vehicleNo">Vehicle No.</label>
-      <input type="text" class="tl_clear tl_textall tl_chk" id="vehicleNo" placeholder="Enter vehicle no." data-placeholder="vehicle no.">
+      <input type="text" class="tl_clear tl_textall " readonly tabindex="4" id="vehicleNo" placeholder="Enter vehicle no." data-placeholder="vehicle no.">
 
      <label for="tlmake">Make</label>
-      <input type="text" class="tl_clear tl_textall tl_chk" id="tlmake" data-placeholder="Make">
+      <input type="text" class="tl_clear tl_textall " readonly tabindex="5" id="tlmake" data-placeholder="Make">
 
          <label for="tlmodel">Model</label>
-      <input type="text" class="tl_clear tl_textall tl_chk" id="tlmodel" data-placeholder="Model">
-
-      <label for="remarks">Remarks</label>
-      <textarea id="remarks" class="" placeholder="Remarks" data-placeholder="Remarks"></textarea>
-
-      <label for="branchName">Branch Name</label>
-      <select id="branchName" class="" data-placeholder="Branch Name">
-        <option>Madurai</option>
-        <option>Chennai</option>
-        <option>Coimbatore</option>
-      </select>
+      <input type="text" class="tl_clear tl_textall " readonly tabindex="6" id="tlmodel" data-placeholder="Model">
 
       <label for="tlmake">Idv</label>
-      <input type="text" class="tl_clear tl_textall tl_chk" id="tlidv" data-placeholder="Idv">
+      <input type="text" class="tl_clear tl_textall " readonly tabindex="7" id="tlidv" data-placeholder="Idv">
 
         <label for="tlMobile">amount</label>
-      <input type="text" class="tl_clear tl_textall tl_chk" id="tlamount" data-placeholder="Amount">
+      <input type="text" class="tl_clear tl_textall " readonly tabindex="8" id="tlamount" data-placeholder="Amount">
 
      
 
 
          <label for="tlmodel">Transactionid</label>
-      <input type="text" class="tl_clear tl_textall tl_chk" id="tltransactionid" data-placeholder="Transactionid">
+      <input type="text" class="tl_clear tl_textall " readonly tabindex="9" id="tltransactionid" data-placeholder="Transactionid">
 
        <label for="tlmodel">Merchentorderid</label>
-      <input type="text" class="tl_clear tl_textall tl_chk" id="tlMerchentorderid" data-placeholder="Merchentorderid">
+      <input type="text" class="tl_clear tl_textall " readonly tabindex="10" id="tlMerchentorderid" data-placeholder="Merchentorderid">
 
       <label for="tlmodel">Regdate</label>
-      <input type="text" class="tl_clear tl_textall tl_chk" readonly id="tlregdate" data-placeholder="Regdate">
+      <input type="text" class="tl_clear tl_textall " readonly tabindex="11" id="tlregdate" data-placeholder="Regdate">
 
       <label for="tlmodel">Chasisno</label>
-      <input type="text" class="tl_clear tl_textall tl_chk chkno" id="tlchasisno" data-placeholder="Chasisno">
+      <input type="text" class="tl_clear tl_textall  chkno" readonly tabindex="12" id="tlchasisno" data-placeholder="Chasisno">
 
        <label for="tlmodel">Engineno</label>
-      <input type="text" class="tl_clear tl_textall tl_chk chkno" id="tlengineno" data-placeholder="Engineno">
+      <input type="text" class="tl_clear tl_textall  chkno" readonly tabindex="13" id="tlengineno" data-placeholder="Engineno">
 
+      <label for="tlmodel">KYC Name</label>
+      <input type="text" class="tl_clear tl_textall " readonly  tabindex="14" id="tlkycname" data-placeholder="KYC Name">
 
-      <label for="tlMobile">TL Mobile No</label>
-      <input type="text" class="" id="tlMobile" data-placeholder="TL Mobile No">
+      <label for="tlmodel">Pan</label>
+      <input type="text" class="tl_clear tl_textall  " readonly tabindex="15" id="tlpan" data-placeholder="Pan">
+ 
+       <label for="tlmodel">DOB</label>
+      <input type="text" class="tl_clear tl_textall" readonly tabindex="16" id="tldob" data-placeholder="DOB">
 
-        
+     <label for="tlmodel">Support Header</label>
+      <input type="text" class="tl_clear tl_textall " readonly tabindex="17" id="tlsupport_header" data-placeholder="Aadhar">
 
-      
+       <label for="tlmodel">Support Description</label>
+       <textarea id="remarks" tabindex="18" rows="2" class="form-control tl_clear tl_textall resize-none" readonly id="tlsupport_description" ></textarea>
 
-      
-     
-
-      <label for="execMobile">Executive Mobile No</label>
-      <input type="text" class="" id="execMobile" value="8682971683" data-placeholder="Executive Mobile No">
-
-      <label for="fileInput">Upload Policy PDF</label>
-      <form id="uploadForm" enctype="multipart/form-data">
-        <input type="file" id="fileInput" name="policyPdf" accept=".jpg,.png,.pdf">
-      </form>
 
       <!-- <button>Save</button>
       <button class="cancel-btn">Cancel</button> -->
@@ -160,41 +150,27 @@
   <div class="office-grid">
    
     <div>
-      <label for="premiumAmount">Od</label>
-      <input type="number" id="txt_od" class="form-control tl_clear tl_textall tl_chk" data-placeholder="Od">
+      <label for="Od">Od</label>
+      <input type="text" id="txt_od" maxlength="8" tabindex="19" onkeypress="return isNumberKey(event)" class="form-control tl_clear tl_textall tl_chk" data-placeholder="Od Amount">
     </div>
 
     <div>
-      <label for="insurerName">Tp</label>
-      <input type="text" id="txt_tp" class="form-control tl_clear tl_textall tl_chk" data-placeholder="Tp">
+      <label for="Tp">Tp</label>
+      <input type="text" id="txt_tp" maxlength="8" tabindex="20" onkeypress="return isNumberKey(event)" class="form-control tl_clear tl_textall tl_chk" data-placeholder="Tp Amount">
     </div>
 
        <div>
       <label for="agentName">Netpremium</label>
-      <input type="text" id="txt_netpremium" class="form-control tl_clear tl_textall tl_chk" data-placeholder="Netpremium">
+      <input type="text" id="txt_netpremium" maxlength="8" tabindex="21" onkeypress="return isNumberKey(event)" class="form-control tl_clear tl_textall tl_chk" data-placeholder="Netpremium Amount">
     </div>
 
     <div>
       <label for="issuedBy">Grosspremium</label>
-      <input type="text" id="txt_grosspremium" class="form-control tl_clear tl_textall tl_chk" data-placeholder="Grosspremium">
+      <input type="text" id="txt_grosspremium" maxlength="8" tabindex="22" onkeypress="return isNumberKey(event)" class="form-control tl_clear tl_textall tl_chk" data-placeholder="Grosspremium Amount">
     </div>
-
-
-    <div>
-      <label for="paymentMode">Payment Mode</label>
-      <select id="ddl_paymentMode" class="form-control tl_clear tl_textall tl_chk" data-placeholder="Payment Mode">
-        <option value="">Select Payment Mode</option>
-        <option>Cash</option>
-        <option>Cheque</option>
-        <option>Credit Card</option>
-        <option>UPI</option>
-        <option>Online Transfer</option>
-      </select>
-    </div>
-
  <div>
       <label for="paymentMode">Company</label>
-      <select id="ddl_paymentMode" class="form-control tl_clear tl_textall tl_chk" data-placeholder="Company">
+      <select id="ddl_paymentMode" class="form-control tl_clear tl_textall tl_chk" tabindex="23" data-placeholder="Company">
         <option value="0">Select Company</option>
         <option value="icici">Icici</option>
         <option value="hdfc">Hdfc</option>
@@ -205,48 +181,55 @@
 
     <div> 
       <label for="policyNo">Policy No</label>
-      <input type="text" id="policyNo" class="form-control tl_clear tl_textall tl_chk" data-placeholder="Enter Policy No">
+      <input type="text" id="policyNo" maxlength="30" tabindex="24" class="form-control tl_clear tl_textall tl_chk" data-placeholder="Enter Policy No">
     </div>
 
     <div>
-      <label for="branchCode">Branch Code</label>
-      <input type="text" id="branchCode" class="form-control" placeholder="Enter Branch Code">
-    </div>
-
-    <div>
-      <label for="remarks">Remarks</label>
-      <textarea id="remarks" class="form-control" placeholder="Enter Remarks"></textarea>
-    </div>
-
-    <div>
-      <label for="approvedBy">Approved By</label>
-      <input type="text" id="approvedBy" class="form-control" placeholder="Enter Approver Name">
-    </div>
-
-    <div>
-      <label for="approvalDate">Approval Date</label>
-      <input type="date" id="approvalDate" class="form-control">
-    </div>
+      <label for="ncb">NCB</label>
+      <select id="ddl_ncb" class="form-control tl_clear tl_textall tl_chk" tabindex="25" data-placeholder="NCB">
+        <option value="0">Select</option>
+        <option value="0%">0%</option>
+        <option value="20%">20%</option>
+        <option value="25%">25%</option>
+        <option value="35%">35%</option>
+        <option value="45%">45%</option>
+        <option value="50%">50%</option>
+      </select>
+    </div> 
 
     <div>
       <label for="startDate">Policy Start Date</label>
-      <input type="date" id="startDate" class="form-control">
+      <input type="text" id="startDate" readonly tabindex="26" class="form-control tl_clear tl_textall tl_chk" data-placeholder="Policy Start Date">
     </div>
 
     <div>
       <label for="endDate">Policy End Date</label>
-      <input type="date" id="endDate" class="form-control">
+      <input type="text" id="endDate" readonly tabindex="27" class="form-control tl_clear tl_textall tl_chk" data-placeholder="Policy End Date">
     </div>
+      <div>
+      <label for="remarks">Remarks</label>
+      <textarea id="remarks" rows="2" tabindex="28" class="form-control tl_clear tl_textall resize-none"  placeholder="Enter Remarks"></textarea>
+    </div>
+     <div>
+     <label for="pdfFile">Upload Policy PDF</label>
+      <form id="uploadForm" enctype="multipart/form-data">
+        <input type="file" id="pdfFile" name="policyPdf" accept="application/pdf" tabindex="29" class="tl_clear tl_chk">
+      </form>
+      </div>
   </div>
 
  <div class="controls" style="text-align: center; margin-top: 20px;">
-  <button type="button" id="save_btn" class="btn btn-primary save-btn">Save</button>
-  <button type="button" id="back_btn" class="btn btn-secondary cancel-btn" style="margin-left: 10px;">Cancel</button>
+  <button type="button" id="save_btn" tabindex="30" class="btn btn-primary save-btn">Save</button>
+  <button type="button" id="back_btn" tabindex="31" class="btn btn-secondary cancel-btn" style="margin-left: 10px;">Cancel</button>
 </div>
 </div>
 </div>
 
- <div style="z-index: 1000;" id="hs-modal" class="hs-overlay hidden fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center" role="dialog" aria-modal="true">
+
+
+
+ <!--Popup modal-->
+ <div style="z-index: 100000;" id="hs-modal" class="hs-overlay hidden fixed inset-0 z-50 bg-black bg-opacity-70 backdrop-blur-[12px] flex items-center justify-center" role="dialog" aria-modal="true">
   <div class="bg-white rounded-xl w-full max-w-md p-6 shadow-lg fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" >
     <!-- Header -->
     <div class="mb-4">
@@ -267,12 +250,15 @@
   </div>
 </div>
 
+
 <label id="lblinsertedId" class="hidden"></label>
 <label id="lblprepare_pending" class="hidden">open</label>
-<label id="lbluserid" class="hidden"></label>
- 
-  <script src="/assets/js/policyprepare.js"></script>
-  <script src="/assets/js/policyprepare_grid/policyprepare_grid.js"></script>
-   <script src="/assets/js/common_scripts.js"></script>
+<label id="lblpolicyid" class="hidden"></label>
+<label id="lbl_pdf_base_string" class="hidden"></label>
+<script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
+<script src="/assets/js/globalGridTheme.js"></script>
+<script src="/assets/js/globalAjax.js"></script>
+<script src="/assets/js/policyprepare_grid/policyprepare_grid.js"></script>
+<script src="/assets/js/common_scripts.js"></script>
 </body>
 </html>

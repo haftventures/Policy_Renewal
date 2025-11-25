@@ -17,6 +17,26 @@ module.exports = {
     }
   },
 
+  async apicallerLivePort_formdata(apiName, formData, options = {}) {
+    try {
+      const response = await axios.post(
+        `${BASE_URL}api/${apiName}`,
+        formData,
+        {
+          headers: {
+            ...formData.getHeaders(),   // required for multipart
+            ...options.headers           // merge extras
+          }
+        }
+      );
+
+      return response;  // MUST return full response
+    } catch (error) {
+      console.error("POST API error:", error.message);
+      return null;
+    }
+  },
+
   async apicallerGet(apiName) {
     try {
       const response = await axios.get(`${BASE_URL}api/${apiName}`);

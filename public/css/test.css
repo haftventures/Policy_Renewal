@@ -1,0 +1,178 @@
+/* ===========================================================
+   GLOBAL
+=========================================================== */
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+body{
+    font-family:'Open Sans',sans-serif;
+    background:#f5f6fa;
+}
+
+/* ===========================================================
+   TOP NAVBAR — BIG DESIGN DEFAULT
+=========================================================== */
+.navbar{
+    width:100%;
+    background:#054468;
+    padding:14px 25px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    position:fixed;
+    top:0;
+    left:0;
+    z-index:1000;
+}
+
+/* ------- LEFT MENU ------- */
+.nav-links{
+    display:flex;
+    align-items:center;
+    gap:25px;          /* BIG SPACING */
+}
+
+.nav-item .nav-link{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:12px 18px; /* BIG BUTTONS */
+    font-size:17px;    /* LARGE TEXT */
+    color:white;
+    border-radius:8px;
+    transition:0.25s;
+}
+.nav-item img{
+    width:24px;        /* BIG ICONS */
+    height:24px;
+}
+
+.nav-item .nav-link:hover{
+    background:white;
+    color:#054468;
+}
+
+/* ===========================================================
+   PROFILE
+=========================================================== */
+.profile-section{
+    display:flex;
+    align-items:center;
+    position:relative;
+}
+.profile{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    cursor:pointer;
+}
+.profile-img{
+    width:45px;
+    height:45px;
+    border-radius:50%;
+    object-fit:cover;
+}
+.profile-name{
+    color:white;
+    font-size:16px;
+    font-weight:600;
+}
+
+/* Dropdown */
+.profile-menu{
+    position:absolute;
+    top:55px;
+    right:0;
+    width:180px;
+    background:white;
+    border-radius:10px;
+    padding:10px 0;
+    display:none;
+    box-shadow:0 5px 15px rgba(0,0,0,0.2);
+}
+.profile.active .profile-menu{
+    display:block;
+}
+.profile-menu-item{
+    padding:10px 15px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    color:#333;
+}
+.profile-menu-item:hover{
+    background:#eaf6ff;
+    color:#054468;
+}
+
+/* ===========================================================
+   MENU TOGGLE BUTTON (MOBILE ONLY)
+=========================================================== */
+.menu-toggle{
+    display:none;
+    color:white;
+    font-size:28px;  /* BIG ICON */
+    background:none;
+    border:none;
+}
+
+/* ===========================================================
+   MAIN CONTENT
+=========================================================== */
+main{
+    padding-top:85px; /* Height of navbar */
+}
+
+/* ===========================================================
+   RESPONSIVE — MOBILE ONLY
+=========================================================== */
+@media (max-width:768px){
+
+    .menu-toggle{
+        display:block;
+    }
+
+    /* NAV LINKS → MOBILE DRAWER */
+    .nav-links{
+        position:fixed;
+        top:75px;
+        left:-260px;
+        width:260px;
+        height:100vh;
+        flex-direction:column;
+        background:#054468;
+        padding-top:20px;
+        gap:15px;
+        transition:0.4s;
+    }
+    .nav-links.active{
+        left:0;
+    }
+
+    /* Keep large design even on mobile */
+    .nav-item .nav-link{
+        font-size:17px;
+        padding:14px 20px;
+        width:100%;
+    }
+
+    .profile-name{
+        display:none; /* Keep UI clean */
+    }
+
+    .profile-img{
+        width:40px;
+        height:40px;
+    }
+}
+
+/* ===========================================================
+   VERY SMALL DEVICES (≤ 480px)
+=========================================================== */
+@media (max-width:480px){
+    .nav-links{
+        width:220px;
+    }
+}

@@ -212,8 +212,9 @@ function sendBtn() {
     $.ajax({
         type: "POST",
         url: "/selected_ids",
-        traditional: true,
-        data: { data: Array.from(selectedRowIds) }, // convert Set to array and use "data" key
+        contentType: "application/json; charset=utf-8",
+         dataType: "json",
+        data: JSON.stringify({ data: Array.from(selectedRowIds) }), // send proper JSON body
         beforeSend: function () {
             $("#cover").show();
         },

@@ -105,6 +105,7 @@ header {
 
 .nav-item:hover .icon_tr {
   transform: rotateX(130deg);
+  transition: all 0.3s ease-in-out;
 }
 
 /* Dropdown Styles */
@@ -112,17 +113,18 @@ header {
   position: absolute;
   top: 100%;
   left: 0;
-  background: white;
+  background:#6988E7;
   border-radius: 12px;
   box-shadow: 0px 1px 2px var(--shadow-light);
   min-width: 220px;
-  z-index: 100;
+  z-index: 100000;
   opacity: 0;
   visibility: hidden;
   transform: translateY(-10px);
   transition: opacity 0.4s ease, transform 0.3s ease, visibility 0.3s;
   padding: 8px 0;
   margin-top: 8px;
+ backdrop-filter: blur(10px);
 }
 
 .nav-item:hover .dropdown-content {
@@ -136,14 +138,15 @@ header {
   align-items: center;
   gap: 12px;
   padding: 12px 20px;
-  color: #444;
+  color: #ffffff;
   text-decoration: none;
   transition: all 0.6s ease;
+
 }
 
 .dropdown-item:hover {
-  background: #f0f7ff;
-  color: #1a73e8;
+  background: #b2cdec;
+  color: #ffffff;
 }
 
 .dropdown-item i {
@@ -426,7 +429,8 @@ footer {
     position: static;
     box-shadow: none;
     width: 100%;
-    background: rgba(255, 255, 255, 0.1);
+    /* background: rgba(255, 255, 255, 0.1); */
+    
     margin-top: 10px;
     padding-bottom: 8px;
     transform: none;
@@ -532,7 +536,7 @@ footer {
   color: #fff;
   display: inline;
   margin: 3px 0 0 3px;
-  transition: all 0.4s ease-in-out;
+
 }
 
 #scroller {

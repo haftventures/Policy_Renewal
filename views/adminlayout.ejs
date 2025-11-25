@@ -38,28 +38,70 @@
           </a>
         
         </div>
-        
-         <div class="nav-item">
-          <a href="/vehicle" class="nav-link">
-          <img class="w-5 h-5" src="/assets/icons/edf.png" alt="Home Icon"/>
-            <span>Payment Entery update</span>
+
+        <div class="nav-item">
+          <a href="#" class="nav-link">
+            <!-- <i class="fas fa-home"></i> -->
+           <img class="w-5 h-5" src="/assets/icons/policy.png"/>
+            <span>Policy</span>
+            <i class="fas fa-caret-up icon_tr"></i>
           </a>
+
+               <div class="dropdown-content">
+        
+             <a href="/policy_report" class="dropdown-item">
+          <img class="w-5 h-5" src="/assets/icons/edf.png" alt="Home Icon"/>
+            <span>Policy Report</span>
+          </a>      
+            <a href="/report" class="dropdown-item">
+           <img class="w-5 h-5" src="/assets/icons/report.png" alt="Home Icon"/>
+            <span>Payment Report</span>
+          </a>  
+           <a href="/policyprepare" class="dropdown-item">
+             <img class="w-5 h-5" src="/assets/icons/list.png" alt="Home Icon"/>
+            <span>Policy Preparation</span>
+          </a>   
+          <a href="/Policy_details" class="dropdown-item">
+          <img class="w-5 h-5" src="/assets/icons/ue.png" alt="Home Icon"/>
+            <span>Policy Details</span>
+          </a>  
+          </div>
         
         </div>
 
-         <div class="nav-item">
+
+
+        
+      
+
+        
+         <div class="nav-item hidden">
+          <a href="/vehicle" class="nav-link">
+          <img class="w-5 h-5" src="/assets/icons/edf.png" alt="Home Icon"/>
+            <span>Payment Entry update</span>
+          </a> 
+        </div>
+
+        <!-- <div class="nav-item">
+          <a href="/policy_report" class="nav-link">
+          <img class="w-5 h-5" src="/assets/icons/edf.png" alt="Home Icon"/>
+            <span>Policy Report</span>
+          </a>       
+        </div> -->
+
+         <!-- <div class="nav-item">
           <a href="/report" class="nav-link">
            <img class="w-5 h-5" src="/assets/icons/report.png" alt="Home Icon"/>
             <span>Payment Report</span>
           </a>        
-        </div>
+        </div> -->
 
-        <div class="nav-item">
+        <!-- <div class="nav-item">
           <a href="/policyprepare" class="nav-link">
              <img class="w-5 h-5" src="/assets/icons/list.png" alt="Home Icon"/>
             <span>Policy Preparation</span>
           </a>        
-        </div>
+        </div> -->
 
 
          <div class="nav-item">
@@ -68,10 +110,16 @@
             <span>User Creation</span>
           </a>        
         </div>
-         <div class="nav-item">
+         <!-- <div class="nav-item">
           <a href="/Policy_details" class="nav-link">
           <img class="w-5 h-5" src="/assets/icons/ue.png" alt="Home Icon"/>
             <span>Policy Details</span>
+          </a>        
+        </div> -->
+        <div class="nav-item">
+          <a href="/support" class="nav-link">
+          <img class="w-5 h-5" src="/assets/icons/support.png" alt="Home Icon"/>
+            <span>Support</span>
           </a>        
         </div>
         <!-- About with dropdown -->
@@ -123,7 +171,11 @@
         <div class="profile">
           
        
-         <span class="profile-name"><%= login.Agentname %></span>
+        <% 
+          const agentName = (login && login.Agentname) ? String(login.Agentname) : '';
+          const displayName = agentName.length > 12 ? agentName.slice(0,12) + '...' : agentName;
+        %>
+        <span class="profile-name max-w-[12ch] truncate" title="<%= agentName %>"><%= displayName %></span>
          <img src="https://img.freepik.com/free-psd/contact-icon-illustration-isolated_23-2151903337.jpg?semt=ais_hybrid&w=740" 
                alt="Profile" class="profile-img">
 
@@ -164,11 +216,17 @@
   </main>
   
   <!--loader-->
-   <div class="div_loader hidden" >
+   <!-- <div class="div_loader hidden" >
     <span class="loader"></span>
-    </div>
+    </div> -->
   
+   <div id="cover">
+        <div class="req_res_loader"></div>
+    </div>
+
+    
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="/assets/js/globalAjax.js"></script>
   <!-- <script src="https://cdn.tailwindcss.com"></script> -->
   <script src="assets/main.js"> </script>
   

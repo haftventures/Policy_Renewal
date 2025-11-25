@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Policy PDF Download</title>
+</head>
+<body style="font-family: Arial; text-align:center; padding-top:50px;">
+
+<h2>Your policy is being prepared...</h2>
+<p>Please wait, your PDF will download automatically.</p>
+
+<script>
+// 1️⃣ Read policyid from URL
+const urlParams = new URLSearchParams(window.location.search);
+const policyId = urlParams.get("policyid");
+
+if (!policyId) {
+    document.body.innerHTML = "<h2>❌ Invalid Request: Policy ID Missing</h2>";
+}
+
+// 2️⃣ API URL that returns PDF URL
+const apiUrl = `http://localhost:8000/api/Policy_renewal/get_pdf_path?policyid=${policyId}`;
+
+(async () => {
+    try {
+        const response = await fetch(apiUrl);
+        const data = await response.json();
+
+        if (!data.success) {
+            document.body.innerHTML = "<h2>❌ Failed to generate PDF</h2>";
+            return;
+        }
+
+        const pdfUrl = data.pdfUrl;
+
+        // 3️⃣ OPEN PDF in NEW TAB
+        window.open(pdfUrl, "_blank");
+
+        // 4️⃣ Show message on this page
+        document.body.innerHTML = `
+            <h2>📄 Your PDF is opened in a new tab</h2>
+            <p>If it didn't open, <a href="${pdfUrl}" target="_blank">CLICK HERE</a></p>
+        `;
+
+    } catch (err) {
+        document.body.innerHTML = "<h2>❌ Error fetching policy PDF</h2>";
+    }
+})();
+</script>
+
+</body>
+</html>

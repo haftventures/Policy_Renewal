@@ -2,46 +2,63 @@ const express = require('express');
 const router = express.Router();
 const apiCaller = require('../apicaller');
 
-router.post('/policydetailgrid_hari', async (req, res) => {
+router.post('/show_policy_count', async (req, res) => {
   try {
     const data = req.body.data || [];
     // console.log("Parsed data array:", data);
     // If you need to map them properly
-    const [fromdate, todate, userid] = data;
+    const [fromdate, todate] = data;
 
     // Example payload to API
     const payload = {
       fromdate: fromdate, 
       todate: todate,        
-      userid: userid,
+      userid: 1,
     };
 
-    const result = await apiCaller.apicallerLivePort('renewal/get_upload_data_list', payload);
+    const result = await apiCaller.apicallerLivePort('renewal/show_policy_count', payload);
 
     // console.log("API Response:", result);
+     const count = result?.data?.[0]?.countt ?? 0;
 
-    res.json({
-      success: result.success,
-      message: "Data fetched successfully",
-      data: result.data
-    });
+    if (count > 0) {
+      // ✔ Count available
+      return res.json({
+        success: true,
+        message: "Data Count fetched successfully",
+        count: count,
+        data: result.data
+      });
+    } else {
+      // ❌ No records
+      return res.json({
+        success: false,
+        message: "No eligible policies found",
+        count: 0,
+        data: []
+      });
+    }
   } catch (error) {
     console.error('Error:', error.message);
     res.status(500).json({ success: false, error: error.message });
   }
 });
 
-router.post('/selected_ids', async (req, res) => {
+router.post('/mass_sms_ids', async (req, res) => {
     try {
-        const data = req.body.data || []; // Example: [1,2,3,4,5]
+        
+         const data = req.body.data || [];
+    // console.log("Parsed data array:", data);
+    // If you need to map them properly
+    const [fromdate, todate] = data;
 
-        if (!Array.isArray(data) || data.length === 0) {
-            return res.status(400).json({ success: false, message: "No IDs provided" });
-        }
-        const payload = { ids: data, userid: 1 };
-
-        // Send the array directly
-        const result = await apiCaller.apicallerLivePort('renewal/selected_sms_ids', payload);
+    // Example payload to API
+    const payload = {
+      fromdate: fromdate, 
+      todate: todate,        
+      userid: 1,
+    };
+    const result = await apiCaller.apicallerLivePort('renewal/massive_update_ids', payload);
 
         const response = result?.[0] || result;
 
@@ -72,9 +89,7 @@ router.post('/selected_ids', async (req, res) => {
         res.status(500).json({ success: false, error: error.message });
     }
 });
-// router.get("/mass-update", (req, res) => {
-//     res.render("mass_update_sms");
-// });
 
 
+  
 module.exports = router;

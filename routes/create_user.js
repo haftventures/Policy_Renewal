@@ -6,6 +6,7 @@ const apiCaller = require('../apicaller');
 // POST /api/leads/save
 router.post('/createusergrid', async (req, res) => {
   try {
+    const UserId = req.session.AgntDtl.UserId
     // console.log("Raw body:", req.body);
     const data = req.body.data || [];
     // console.log("Parsed data array:", data);
@@ -13,7 +14,7 @@ router.post('/createusergrid', async (req, res) => {
     const [status] = data;
     // console.log("Extracted status:", status);
 
-    const payload = { status, userid: "1" };
+    const payload = { status, userid: UserId };
     // console.log("Payload before API:", payload);
 
     const result = await apiCaller.apicallerLivePort('Policy_renewal/userdetails', payload);
@@ -67,6 +68,7 @@ router.post('/createusergrid', async (req, res) => {
 
 router.post('/addnewuser', async (req, res) => {
   try {
+    const UserId = req.session.AgntDtl.UserId
     // console.log("Raw body:", req.body);
     const data = req.body.data || [];
     // console.log("Parsed data array:", data);
@@ -74,7 +76,7 @@ router.post('/addnewuser', async (req, res) => {
     const [status] = data;
     // console.log("Extracted status:", status);
 
-    const payload = { status, userid: "1" };
+    const payload = { status, userid: UserId };
     // console.log("Payload before API:", payload);
 
     const result = await apiCaller.apicallerLivePort('Policy_renewal/userdetails', payload);

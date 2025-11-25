@@ -1,5 +1,5 @@
-<div id="mainPage" class="w-full shadow-[0_0_15px_rgba(36,97,231,0.8)] p-4 sm:p-6 md:p-8  mt-5 rounded-xl mb-5">
-   <h1 class="flex-1 text-center text-xl font-semibold text-gray-800 mb-6">Payment Report</h1>
+<div id="mainPage" class="w-full shadow-[0_0_15px_rgba(36,97,231,0.8)]  p-4 sm:p-6 md:p-8  mt-5 rounded-xl mb-5">
+   <h1 class="flex-1 text-center text-xl font-semibold text-gray-800 mb-6">Support Report</h1>
   <div class="flex flex-col sm:flex-row sm:flex-wrap sm:items-end justify-self-center gap-4 mb-6">
    
     <div class="flex flex-col w-full sm:w-auto">
@@ -24,18 +24,6 @@
       />
     </div>
 
-              <div class="flex flex-col w-full sm:w-auto">
-              <label for="status" class="text-gray-700 font-medium mb-1">
-                Status 
-              </label>
-              <select id="status"
-                class="w-full px-2 border rounded-lg py-[10px] w-full sm:w-48 border-gray-300 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500">
-                <option value="all">-- All --</option>
-                <option value="Paid">Paid </option>
-                <option value="unpaid">Un Paid </option>
-              </select>
-            </div>
-
     <div class="flex w-full sm:w-auto">
       <button
         id="viewBtn"
@@ -58,7 +46,7 @@
 
 
  <!--Popup modal-->
- <div style="z-index: 100000;" id="hs-modal" class="hs-overlay hidden fixed inset-0 z-50 bg-black bg-opacity-70 backdrop-blur-[12px] flex items-center justify-center" role="dialog" aria-modal="true">
+  <div style="z-index: 100000;" id="hs-modal" class="hs-overlay hidden fixed inset-0 z-50 bg-black bg-opacity-70 backdrop-blur-[12px] flex items-center justify-center" role="dialog" aria-modal="true">
   <div class="bg-white rounded-xl w-full max-w-md p-6 shadow-lg fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" >
     <!-- Header -->
     <div class="mb-4">
@@ -84,6 +72,8 @@
 <label for="lblpolicyid" id="lblpolicyid" class="block mb-2 text-sm font-medium hidden"></label>
 <label for="lblpayment_status" id="lblpayment_status" class="block mb-2 text-sm font-medium hidden"></label>
 
-<script src="/assets/js/report/report.js"></script>
+<script src="/assets/js/support_report/support_report.js"></script>
 <script src="/assets/js/common_scripts.js"></script>
 <script src="/assets/js/globalGridTheme.js"></script>
+<script src="/assets/js/globalAjax.js"></script>
+<script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>

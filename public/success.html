@@ -38,7 +38,7 @@
         <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5 2a9 9 0 11-18 0 9 9 0 0118 0z" />
       </svg> -->
       <i id="icon" class="fa-regular fa-circle-check text-6xl text-green-600"></i>
-      <!-- <img id="errorimg" src="/assets/images/failergif.gif" alt="Success Icon" class="w-26 h-20 hidden"/>  -->
+      <img id="errorimg" src="/assets/images/failergif.gif" alt="Success Icon" class="w-26 h-20 hidden"/> 
     </div>
     <h1 id="header" class="text-2xl font-semibold text-gray-800 mb-2">Payment Successful!</h1>
     <p id="message" class="text-gray-600 mb-1">Your transaction was completed successfully.</p>
@@ -74,8 +74,8 @@
 
       <!-- Name -->
       <div>
-        <label class="block text-gray-700 font-medium mb-1">Name</label>
-        <input id="su_name" type="text" maxlength="50" class="w-full px-3 py-2 border rounded-lg focus:ring focus:ring-blue-300 outline-none" placeholder="Enter name">
+        <label class="block text-gray-700 font-medium mb-1">Header</label>
+        <input id="su_name" type="text" maxlength="50" class="w-full px-3 py-2 border rounded-lg focus:ring focus:ring-blue-300 outline-none" placeholder="Enter Header">
       </div>
 
       <!-- Description -->
@@ -96,7 +96,7 @@
    </div>
 
  <!--Popup modal-->
- <div style="z-index: 20000;" id="hs-modal" class="hs-overlay hidden fixed inset-0 z-50 bg-black bg-opacity-70 backdrop-blur-[12px] flex items-center justify-center" role="dialog" aria-modal="true">
+ <div style="z-index: 100000;" id="hs-modal" class="hs-overlay hidden fixed inset-0 z-50 bg-black bg-opacity-70 backdrop-blur-[12px] flex items-center justify-center" role="dialog" aria-modal="true">
   <div class="bg-white rounded-xl w-full max-w-md p-6 shadow-lg fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" >
     <!-- Header -->
     <div class="mb-4">
@@ -117,6 +117,9 @@
   </div>
 </div>
 
+    <div id="cover">
+        <div class="req_res_loader"></div>
+    </div>
 
   <label for="lbltnxid" id="lbltnxid" class="hidden"></label>
   <label for="lblexcelid" id="lblexcelid" class="hidden"></label>
@@ -124,6 +127,8 @@
 
   <script src="/assets/js/jquery-3.6.0.min.js"></script>
   <script src="/assets/js/jquery-3.6.4.min.js"></script>
+   
+    <script src="/assets/js/globalAjax.js"></script>
   <!-- <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script> -->
   <script src="/assets/flatpickr.js"></script>
   <script src="/assets/js/common_scripts.js"></script>
@@ -133,11 +138,11 @@
 
   <script>
     window.addEventListener('load', () => {
-      confetti({
-        particleCount: 200,
-        spread: 120,
-        origin: { y: 0.6 }
-      });
+      // confetti({
+      //   particleCount: 200,
+      //   spread: 120,
+      //   origin: { y: 0.6 }
+      // });
 
          const urlParams = new URLSearchParams(window.location.search);
          const paymentid = urlParams.get('txnid');
@@ -163,12 +168,13 @@ function load() {
     type: 'POST',
     contentType: 'application/json', // ✅ send JSON properly
     data: JSON.stringify({ data: data }),
+     
     success: function (response) {
       console.log('Server Response:', response);
 
       if (response.success === false) {
-        $('#errorimg').removeClass('hidden');
         $('#icon').addClass('hidden');
+        $('#errorimg').removeClass('hidden');     
         $('body').removeClass('bg-gray-100').addClass('bg-red-[#FF5C5C]');
         $('#icon')
           .removeClass('fa-circle-check text-green-600')
@@ -177,8 +183,13 @@ function load() {
         $('#message').text('There was an issue with your transaction. Please try again.');
         $("#kyc_link").addClass("hidden");
       } else {
-        console.log('Payment update success');
-        $("#kyc_link").removeClass("hidden");
+        confetti({
+        particleCount: 200,
+        spread: 120,
+        origin: { y: 0.6 }
+      });
+      console.log('Payment update success');
+      $("#kyc_link").removeClass("hidden");
       }
     },
     error: function (error) {
@@ -201,11 +212,17 @@ function Succcess_support() {
     type: 'POST',
     contentType: 'application/json', // ✅ send JSON properly
     data: JSON.stringify({ data: data }),
+        beforeSend: function () {
+            $("#cover").show();
+        },
     success: function (response) {
       console.log('Server Response:', response);
 
       if (response.success == true) {
         showmobilenumber('Success!', response.message);
+         $("#su_name").val(""),
+        $("#su_description").val("")
+       document.getElementById('support_Modal').style.display = 'none';
       } else {
        
   

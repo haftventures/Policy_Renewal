@@ -199,11 +199,17 @@ function save_btn() {
     type: 'POST',
     contentType: 'application/json', // ✅ send JSON properly
     data: JSON.stringify({ data: data }),
+       beforeSend: function () {
+            $("#cover").show();
+        },
     success: function (response) {
       console.log('Server Response:', response);
 
       if (response.success == true) {
        showmobilenumber('Success!', response.message)
+        $("#sp_name").val(""),
+        $("#sp_description").val("")
+       document.getElementById('support_Modal').style.display = 'none';
       } else  {
          showmobilenumber('Error!', response.message)
       }
